@@ -4,7 +4,7 @@
 
 from ImageRead import ImageRead
 from Adaptator import Adaptator
-from Convolution import Convolution
+from ConvolutionNew import Convolution
 from Parser import Parser
 from MaxPool import MaxPool
 from Reshape import Reshape
