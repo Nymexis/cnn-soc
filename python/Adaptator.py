@@ -35,16 +35,17 @@ class Adaptator:
         ):
         self.size_x     = output_width
         self.size_y     = output_height
-
-    def imgLoad(self, img):
-        # init
-        self.img_len    = len(img)*len(img[0])*len(img[0][0])
-        self.input_img  = img # useless atm
-        self.comp_nb    = len(img[0][0])
         self.output_img = [[[0 for c in range(self.comp_nb)] for i in range(self.size_x)] for j in range(self.size_y)] # initialize output image with null vector
         self.img_mu     = 0
         self.img_sigma  = 0
-        
+
+    def imgLoad(self, img):
+        self.img_mu = 0
+        self.img_sigma = 0
+        self.input_img  = img # useless atm
+        self.img_len    = len(img)*len(img[0])*len(img[0][0])
+        self.comp_nb    = len(img[0][0])
+        self.cropped_img = []
         # crop image
         if len(img) < self.size_y or len(img[0]) < self.size_x:
             print("Input image smaller than expected output image")
@@ -61,7 +62,7 @@ class Adaptator:
                 self.cropped_img[-1].append(img[l][c])
 
         self.img_len = len(self.cropped_img)*len(self.cropped_img[0])*len(self.cropped_img[0][0])
-        # mu and sigma
+
         # mu
         for l in list(self.cropped_img):
             self.img_mu += sum([sum(c) for c in l])
@@ -69,16 +70,13 @@ class Adaptator:
         self.img_mu = (1./self.img_len) * self.img_mu
 
         # sigma
-        # for l in self.cropped_img:
-        #     self.img_sigma += sum([(sum(c)-self.img_mu)**2 for c in l])
-        # sigma
         for l in self.cropped_img:
             for c in l:
                 for z in c:
                     self.img_sigma += (z-self.img_mu)**2 
         self.img_sigma = sqrt(1./self.img_len * self.img_sigma)
     
-        print("µ : {} ; σ : {}".format(self.img_mu, self.img_sigma))
+        # print("µ : {} ; σ : {}".format(self.img_mu, self.img_sigma))
         
         return 1
 
@@ -101,8 +99,6 @@ class Adaptator:
             print("d4 = None")
             
     def normalize(self):
-        # print("Adaptator Input")
-        # self.print_len(self.input_img)
         for l in range(self.size_x):
             for c in range(self.size_y):
                 for i in range(self.comp_nb):

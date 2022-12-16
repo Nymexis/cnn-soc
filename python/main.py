@@ -15,7 +15,7 @@ from ImageRead import ImageRead
 from random import randint
 import sys
 
-debug = 0
+debug = 1
 
 def main():
     try:
@@ -27,12 +27,10 @@ def main():
     from pprint import pprint
     prsr = Parser("../data/CNN_coeff_3x3.txt")
 
-    if prsr.readCoeff():
-        wght = prsr.coeffs["local3/weights"]
-    else:
-        print("An error occured.")
+    if not prsr.readCoeff():
+        print("An error occured while reading coeffs.")
     
-    imgs = ImageRead("../data/cifar-10-batches-bin/test_batch.bin")
+    imgs = ImageRead("../data/cifar-10-batches-bin/data_batch_1.bin")
     img_raw, img_label = imgs.readImg(index)
 
     # print(img_label)
@@ -40,11 +38,6 @@ def main():
     adaptator = Adaptator(24, 24)
     adaptator.imgLoad(img_raw)
     adaptator.normalize()
-    if debug == 1:
-
-        plt.imshow(adaptator.output_img)
-        plt.title("After normalization\n")
-        plt.show()
 
     # print("***** CONV 1 *****\n")
     img_conv1 = Convolution(adaptator.output_img, prsr.coeffs["conv1/weights"], prsr.coeffs["conv1/biases"], 0)
@@ -56,7 +49,10 @@ def main():
         
     img_mp1 = MaxPool(img_conv1.output_volume)
     img_mp1.compute()
-
+    fig, ax = plt.subplots(1, 10, figsize=(7,4))
+    for i in range(10):
+        im = ax[i].imshow(img_mp1.output_volume[i])
+    plt.show()
     # print("***** CONV 2 *****\n")
     img_conv2 = Convolution(img_mp1.output_volume, prsr.coeffs["conv2/weights"], prsr.coeffs["conv2/biases"], 0)
     # print("Number of output layers : "+str(len(prsr.coeffs["conv2/weights"][0][0][0])))
@@ -99,7 +95,7 @@ def main():
     res = str(int(index == img_label))+"\n"
     fp.write(res+ " Found " + fp_l[index] + " was : " + fp_l[img_label])
     if debug == 1:
-        plt.imshow(img_raw)
+        plt.imshow(img_raw/255.)
         plt.title(fp_l[index])
         plt.show()
     

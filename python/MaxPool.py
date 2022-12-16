@@ -42,8 +42,6 @@ class MaxPool:
         self.output_size_y = int(self.size_y/2)
         self.output_volume = [[[float(0) for x in range(int(self.size_x/2))] for y in range(int(self.size_y/2))] for z in range(int(self.size_z))]
 
-        # print("MaxPool Input")
-        # self.print_len(input_img)
     def compute(self):
         z = 0
         while z < self.size_z:

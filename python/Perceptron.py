@@ -21,17 +21,12 @@ class Perceptron:
         self.weights       = weights
         self.prob_nb       = len(self.biases)
         self.feature_size  = len(self.input_feature)
-
+        
     def compute(self):
-        # print("Perceptron Input")
-        # self.print_len(self.input_feature)
         self.output_prob = [0 for i in range(self.prob_nb)]
         for i in range(self.prob_nb):
             for k in range(len(self.input_feature)):
                 self.output_prob[i] += self.weights[k][i] * self.input_feature[k]
-
-            #self.output_prob[i] = sum([self.weights[k][i] * self.input_feature[k] \
-            #    for k in range(self.prob_nb)])
             self.output_prob[i] += self.biases[i]
 
         sum_exp = sum([exp(self.output_prob[i]) for i in range(self.prob_nb)])

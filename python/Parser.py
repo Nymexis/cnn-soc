@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
     if prsr.readCoeff():
         print(prsr.coeffs.keys())
-        wght = prsr.coeffs["conv1/weights"]
+        wght = prsr.coeffs["conv2/weights"]
 
         pprint(wght)
     else:
