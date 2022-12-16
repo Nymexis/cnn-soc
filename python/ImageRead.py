@@ -39,9 +39,16 @@ class ImageRead:
 
 
 if __name__ == "__main__":
+    from sys import *
+
+    if len(argv) < 2:
+        print("Syntax : ./imageRead image_idx")
+        exit(1)
+
     imgObj = ImageRead("../data/cifar10_data/cifar-10-batches-bin/test_batch.bin")
 
-    img, label = imgObj.readImg(6070)
+
+    img, label = imgObj.readImg(int(argv[1]))
 
     imshow(img)
     show()
