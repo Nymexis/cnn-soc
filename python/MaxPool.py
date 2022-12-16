@@ -60,39 +60,7 @@ class MaxPool:
                 y += 2
             z += 1
         return 1
-
-    def regroup_layers(self):
-        # regroup all layers
-        x_len = len(self.output_volume[0][0])
-        y_len = len(self.output_volume[0])
-        z_len = len(self.output_volume)
         
-        img = []
-        for x in range(x_len):
-            img.append([])    
-            for y in range(y_len):
-                img[-1].append([self.output_volume[i][x][y] for i in range(z_len)])
-
-        return img
-    
-    def print_len(self, l):
-        try:
-            print("d1 = ", len(l))
-        except:
-            print("d1 = None")
-        try:
-            print("d2 = ", len(l[0]))
-        except:
-            print("d2 = None")
-        try:
-            print("d3 = ", len(l[0][0]))
-        except:
-            print("d3 = None")
-        try:
-            print("d4 = ", len(l[0][0][0]))
-        except:
-            print("d4 = None")
-
 if __name__ == "__main__":
     from matplotlib.pyplot import imread, subplots, show
 
@@ -101,11 +69,3 @@ if __name__ == "__main__":
     mp = MaxPool(img_l)
     mp.compute()
     mp_l = mp.output_volume
-
-    fig, axs = subplots(1, 2, figsize=(7, 4))
-    fig.canvas.manager.set_window_title('Convolution result')
-    axs[1].imshow(mp_l)
-    axs[1].set(title="Output image")
-    axs[0].imshow(img_l)
-    axs[0].set(title="Input image")
-    show()

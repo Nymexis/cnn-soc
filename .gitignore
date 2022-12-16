@@ -5,3 +5,4 @@ data/*
 .vscode/*
 python/tests/*
 python/*.txt*
+HLS/build/*
