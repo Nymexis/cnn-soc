@@ -18,7 +18,7 @@
 
 #define fm(x,y,z)   x + y*MAX_K_SIZE_X + z*MAX_K_SIZE_Y*MAX_K_SIZE_X
 #define k(x,y,z)    x + y*MAX_K_SIZE_X + z*(MAX_K_SIZE_Y*MAX_K_SIZE_X+MAX_BIAS_NBR)
-#define b(k,bi)     (k+1)*(MAX_K_SIZE_X*MAX_K_SIZE_Y*MAX_K_SIZE_Z) + bi  
+#define b(k,bi)     k*(MAX_K_SIZE_X*MAX_K_SIZE_Y*MAX_K_SIZE_Z) + bi  
 
 #pragma hls_design top
 int conv2d(
@@ -39,7 +39,7 @@ int conv2d(
 ){
     OFM : for(int k_idx = 0; k_idx < nbk; nbk++) {
         // For each kernel layer
-        KER_L : for(int kl = 0; kl < size_k_z; kl++) {
+        KER_L : for(int kz = 0; kz < size_k_z; kz++) {
             IFMZ : for(int z = 0; z < size_fm_z; z++) {
                 IFMX : for(int x = 0; x < size_fm_x; x++) {
                     IFMY : for(int y = 0; y < size_fm_y; y++) {
@@ -60,14 +60,17 @@ int conv2d(
     }
     // adding biases; might be able to include in first loops
     BIASES : for(int bi = 0; bi < bias_nbr; bi++) {
-        for(z = 0; z < size_fm_z; z++) {
-            for(x = 0; x < size_fm_x, x++) {
-                for(y = 0; y < size_fm_y; y++) {
-                    output_fm[fm(x,y,z)] += kernel[b(nbk, z)];       
+        for(int z = 1; z < size_fm_z+1; z++) {
+            for(int x = 0; x < size_fm_x; x++) {
+                for(int y = 0; y < size_fm_y; y++) {
+                    dType bias = kernel[b(nbk, z)]; 
+                    output_fm[fm(x,y,z)] += bias;
                 }
             }
         }
     }
+
+    return 1;
 }
 
 #endif
