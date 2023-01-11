@@ -2,8 +2,8 @@
 #define TYPES_H
 
 #include "ac_fixed.h"
-#define  WIDTH = 12
-#define  I     = 9
+#define  WIDTH 12
+#define  I     9
 
 // | <------------ W ----------------> |
 // | 0 <-- I --> 0 . 0 <-- W - I --> 0 |

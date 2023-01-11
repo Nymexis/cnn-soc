@@ -22,20 +22,20 @@
 
 #pragma hls_design top
 int conv2d(
-    dType input_fm[MAX_SIZE];
-    dType output_fm[MAX_SIZE];
-    dType kernel[MAX_KERNEL_SIZE];
+    dType input_fm[MAX_SIZE],
+    dType output_fm[MAX_SIZE],
+    dType kernel[MAX_KERNEL_SIZE],
 
-    iType size_fm_x;
-    iType size_fm_y;
-    iType size_fm_z;
-    iType output_fm_layer;
+    iType size_fm_x,
+    iType size_fm_y,
+    iType size_fm_z,
+    iType output_fm_layer,
 
-    iType size_k_x;
-    iType size_k_y;
-    iType size_k_z;
-    iType nbk;
-    iType bias_nbr;
+    iType size_k_x,
+    iType size_k_y,
+    iType size_k_z,
+    iType nbk,
+    iType bias_nbr
 ){
     OFM : for(int k_idx = 0; k_idx < nbk; nbk++) {
         // For each kernel layer
