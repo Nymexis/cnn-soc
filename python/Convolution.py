@@ -95,7 +95,7 @@ class Convolution:
             l_idx    = 0
             
             #print(len(mkernel))
-            for kernel_layer in mkernel:
+                for kernel_layer in mkernel:
                 # - Convolution of every volume layers
                 tK     = np.transpose(kernel_layer)
                 # tK = kernel_layer

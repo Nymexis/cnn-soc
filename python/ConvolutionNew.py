@@ -125,7 +125,7 @@ class Convolution:
             c_layers += self.bias[bias_idx]
             bias_idx += 1
 
-            # RELU
+            # RELU  
             for i in range(len(c_layers)):
                 for j in range(len(c_layers[0])):
                     c_layers[i][j] = c_layers[i][j] if c_layers[i][j] > 0 else 0

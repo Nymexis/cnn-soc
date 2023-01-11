@@ -115,7 +115,7 @@ if __name__ == "__main__":
     IMG_WIDTH  = 24
 
     t0 = time()
-    img = imread("tests/fig1.png")
+    img = imread("tests/horse5.png")
     adap = Adaptator(IMG_HEIGHT,IMG_WIDTH)
     if adap.imgLoad(img):
         adap.normalize()
@@ -127,6 +127,7 @@ if __name__ == "__main__":
     fig, axs = subplots(1, 2, figsize=(7, 4))
     fig.canvas.manager.set_window_title('Normalization result')
     axs[1].imshow(adap.output_img)
+    print(adap.output_img)
     axs[1].set(title="Output image")
     axs[0].imshow(adap.input_img)
     axs[0].set(title="Input image")
