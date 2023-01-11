@@ -1,4 +1,5 @@
 CMakeCache.txt
+CMakeLists.txt
 CMakeFiles/*
 *.exe
 *.o
