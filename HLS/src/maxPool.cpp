@@ -1,7 +1,7 @@
 #include <maxPool.h>
 #include <iostream>
 
-int maxpool(int x, int y, int z, double img_in[MAX_F_SIZE], double img_out[MAX_F_SIZE]){
+int maxpool(int x, int y, int z, double img_in[MAX_SIZE], double img_out[MAX_SIZE]){
     int cursor_x, cursor_y, max;
     if ( x == 0 || y == 0 || z == 0 || img_in == NULL || img_out == NULL){
         return 0;
@@ -17,13 +17,13 @@ int maxpool(int x, int y, int z, double img_in[MAX_F_SIZE], double img_out[MAX_F
                             cursor_y = l + d2;
                             if (cursor_x > 0 && cursor_y > 0 && cursor_x < x && cursor_y < y ){
                                 std::cout << cursor_x << " " << cursor_y << std::endl;
-                                if (img_in[f*SIZE_X*SIZE_Y+cursor_x+cursor_y*SIZE_X] > max){
-                                    max = img_in[f*SIZE_X*SIZE_Y+cursor_x+cursor_y*SIZE_X];
+                                if (img_in[f*MAX_SIZE_X*MAX_SIZE_Y+cursor_x+cursor_y*MAX_SIZE_X] > max){
+                                    max = img_in[f*MAX_SIZE_X*MAX_SIZE_Y+cursor_x+cursor_y*MAX_SIZE_X];
                                 }
                             }
                         }
                     }
-                    img_out[f*SIZE_X*SIZE_Y+cursor_x/2+cursor_y*SIZE_X/2] = max;
+                    img_out[f*MAX_SIZE_X*MAX_SIZE_Y+cursor_x/2+cursor_y*MAX_SIZE_X/2] = max;
                 }
             }
         }

@@ -1,7 +1,7 @@
 #include <perceptron.h>
 #include <iostream>
 
-int perceptron(double img_in[SIZE_IN], double kernels[ROM_SIZE], double img_out[SIZE_OUT]){
+int perceptron(double img_in[MAX_SIZE], double kernels[MAX_KERNEL_SIZE], double img_out[MAX_SIZE]){
     int    cursor  = MAX_SIZE_K * K_NBR_;
     double sum_exp = 0;
     for (int i = 0; i < SIZE_OUT ; i++){
